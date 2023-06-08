@@ -14,6 +14,8 @@ const BackNav = ({ step }) => {
             </LeftIcon>
             <Title>{step === "payment" ? "Back to delivery" : "Back to checkout"}</Title>
         </BackNavContainer>
+    } else {
+        return null;
     }
 }
 

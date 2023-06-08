@@ -18,8 +18,9 @@ import { addDeliveryDetails } from "../../../../redux/store/actions/checkout.act
 
 import { AppContext } from "../../../../context/AppContext";
 import Button from "../../../Button";
+import TitleSummary from "../../../TitleSummary";
 
-const SummaryDelivery = () => {
+const Summary = () => {
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.checkout);
   const { currencyFormatter } = useContext(AppContext);
@@ -34,7 +35,7 @@ const SummaryDelivery = () => {
 
   return (
     <SummaryWrapper>
-      <Title>Summary</Title>
+      <TitleSummary/>
       <TotalProduct>10 items purchased</TotalProduct>
       <TotalDelivery>
         <TotalDetail>
@@ -61,4 +62,4 @@ const SummaryDelivery = () => {
   );
 };
 
-export default SummaryDelivery;
+export default Summary;
