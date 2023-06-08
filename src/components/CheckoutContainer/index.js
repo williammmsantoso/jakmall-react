@@ -1,13 +1,18 @@
 import React from "react";
 
 import { CheckoutContainer } from "./styles";
+import Navigator from "../Navigator";
 
-const CheckoutLayout = () => {
+import Delivery from "../Delivery";
+
+const Checkout = () => {
   return (
     <CheckoutContainer>
-      Checkout
+      <Navigator active={1} />
+
+      <Delivery/>
     </CheckoutContainer>
   );
 };
 
-export default CheckoutLayout;
+export default Checkout;

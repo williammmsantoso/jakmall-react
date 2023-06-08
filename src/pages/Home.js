@@ -1,10 +1,10 @@
 import React from "react";
-import { CheckoutContainer } from "../components/CheckoutContainer/styles";
+import Checkout from "../components/CheckoutContainer";
 
 const Home = () => {
   return (
     <div className="container">
-      <CheckoutContainer/>
+      <Checkout/>
     </div>
   );
 }
