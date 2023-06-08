@@ -11,7 +11,6 @@ import {
 
 const FormDelivery = () => {
   const {
-    handleSubmit,
     register,
     formState: { errors },
   } = useForm();
@@ -30,14 +29,9 @@ const FormDelivery = () => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
   };
 
-  const onSubmit = (value) => {
-    console.log(value);
-  };
-
   return (
     <FormDeliveryWrapper>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        
+      <Form>
         <div>
           <FormWrapper>
             <FormInput
@@ -99,10 +93,21 @@ const FormDelivery = () => {
           <FormWrapper>
             <FormInput
               autoComplete="off"
-              type="text"
+              type="number"
               placeholder="Dropshipper phone number"
-              {...register("dropshipperPhoneNumber")}
+              {...register("dropshipperPhoneNumber", {
+                required: true,
+                minLength: 6,
+                maxLength: 20,
+                pattern: {
+                  value: /^0\d{9,12}/g,
+                  message: "*Please enter valid phone number",
+                },
+              })}
             />
+            {errors.dropshipperPhoneNumber && errors.dropshipperPhoneNumber.type === "maxLength" && (
+              <p>Max length exceeded</p>
+            )}
           </FormWrapper>
         </div>
       </Form>

@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 import TitlePage from "../../TitlePage";
-import { DeliveryContainer, FormSection, DropshipperTitle } from "./styles";
+import { DeliveryContainer, FormSection } from "./styles";
 import FormDelivery from "./FormDelivery";
 import SummaryDelivery from "./SummaryDelivery";
+import { useDispatch } from "react-redux";
+import { CHECKOUT_DROPSHIPPING_FEE } from "../../../redux/actionTypes";
+import Checkbox from "../../Checkbox";
 
 const Delivery = () => {
+    const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
 
-    const handleChange = () => {
+    const onChange = React.useCallback(e => {
         setChecked(!checked);
-    }
+        
+        console.log(checked);
+        
+        dispatch({ type: CHECKOUT_DROPSHIPPING_FEE, payload: checked ? 5900 : 0 });
+    }, []);
 
     return <DeliveryContainer>
         <FormSection>
             <div className="d-flex items-center justify-between">
                 <TitlePage title="Delivery details" />
 
-                <div id="inputPreview">
-                    <input name="cssCheckbox" id="dropshipper" type="checkbox" class="css-checkbox" onChange={() => handleChange()} />
-                    <label for="dropshipper">
-                        <DropshipperTitle>Send as dropshipper</DropshipperTitle>
-                    </label>
-                </div>
+                <Checkbox label="Send as dropshipper" checked={checked} setChecked={onChange} />
             </div>
 
             <FormDelivery />

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   SummaryWrapper,
@@ -13,11 +14,23 @@ import {
   TotalPaymentValue,
 } from "./styles";
 
-import Buttons from "../../../Buttons";
+import { addDeliveryDetails } from "../../../../redux/store/actions/checkout.action";
+
+import { AppContext } from "../../../../context/AppContext";
+import Button from "../../../Button";
 
 const SummaryDelivery = () => {
+  const dispatch = useDispatch();
+  const checkout = useSelector((state) => state.checkout);
+  const { currencyFormatter } = useContext(AppContext);
 
-  const onAddDeliveryDetails = () => {};
+  const onAddDeliveryDetails = () => {
+    dispatch(addDeliveryDetails());
+  };
+
+  const costOfGood = 500000;
+
+  const totalPayment = costOfGood + checkout.dropShippingFee;
 
   return (
     <SummaryWrapper>
@@ -26,20 +39,20 @@ const SummaryDelivery = () => {
       <TotalDelivery>
         <TotalDetail>
           <TotalTitle>Cost of goods</TotalTitle>
-          <TotalValue>{50000}</TotalValue>
+          <TotalValue>{currencyFormatter(500000)}</TotalValue>
         </TotalDetail>
         <TotalDetail>
           <TotalTitle>Dropshipping Fee</TotalTitle>
-          <TotalValue>{2}</TotalValue>
+          <TotalValue>{currencyFormatter(checkout.dropShippingFee)}</TotalValue>
         </TotalDetail>
         <TotalPayment>
           <TotalPaymentTitle>Total</TotalPaymentTitle>
           <TotalPaymentValue>
             {" "}
-            {20000}
+            {currencyFormatter(totalPayment)}
           </TotalPaymentValue>
         </TotalPayment>
-        <Buttons
+        <Button
           title="Continue to Payment"
           onClick={() => onAddDeliveryDetails()}
         />

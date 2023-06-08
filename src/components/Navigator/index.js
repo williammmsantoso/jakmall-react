@@ -16,15 +16,18 @@ const Navigator = ({ active }) => {
   const data = [
     {
         id: 1,
-        title: "Delivery"
+        title: "Delivery",
+        name: "delivery"
     },
     {
         id: 2,
-        title: "Payment"
+        title: "Payment",
+        name: "payment"
     },
     {
         id: 3,
-        title: "Finish"
+        title: "Finish",
+        name: "finish"
     },
   ]
 
@@ -32,10 +35,10 @@ const Navigator = ({ active }) => {
     <StepContainer>
         {
             data.map((item, idx) => {
-                return <Step>
+                return <Step key={idx}>
                     <StepItem>
-                        <StepNumber active={item.id === active} >{item.id}</StepNumber>
-                        <StepTitle active={item.id === active} >{item.title}</StepTitle>
+                        <StepNumber active={item.name === active} >{item.id}</StepNumber>
+                        <StepTitle active={item.name === active} >{item.title}</StepTitle>
                     </StepItem>
 
                     {

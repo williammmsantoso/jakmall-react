@@ -37,6 +37,7 @@ export const FormTextarea = styled.textarea`
   border: none;
   border: 1px solid #cccccc;
   padding-left: 16px;
+  padding-top: 12px;
   font-size: 16px;
   font-weight: 500;
   line-height: 19.36px;

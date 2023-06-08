@@ -1,16 +1,21 @@
+import "./styles/styles.scss";
+
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 
-import "./styles/styles.scss";
+import { AppProvider } from "./context/AppContext";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Route exact path="/" component={Home} />
-      </div>
-    </Router>
+    <AppProvider>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={Home} />
+        </div>
+      </Router>
+    </AppProvider>
   );
 }
 
