@@ -3,7 +3,7 @@ import React from "react";
 import { CheckoutContainer } from "./styles";
 import Navigator from "../Navigator";
 
-import Delivery from "../Delivery";
+import Delivery from "../Page/Delivery";
 
 const Checkout = () => {
   return (
