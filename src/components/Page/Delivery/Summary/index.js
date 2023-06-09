@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   SummaryWrapper,
-  Title,
   TotalProduct,
   TotalDelivery,
   TotalDetail,
@@ -29,9 +28,7 @@ const Summary = () => {
     dispatch(addDeliveryDetails());
   };
 
-  const costOfGood = 500000;
-
-  const totalPayment = costOfGood + checkout.dropShippingFee;
+  const totalPayment = 500000 + checkout.dropShippingFee;
 
   return (
     <SummaryWrapper>

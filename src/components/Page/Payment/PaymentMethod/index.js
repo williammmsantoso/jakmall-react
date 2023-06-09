@@ -1,18 +1,10 @@
 import React, { useContext } from "react";
 
-import {
-  PaymentMethodWrapper,
-  PaymentList,
-  PaymentItem,
-  PaymentItemActive,
-  PaymentItemTitle,
-  PaymentItemValue,
-  PaymentItemWallet,
-  PaymentItemActiveWallet,
-} from "./styles";
+import { PaymentMethodWrapper } from "./styles";
 
 import { AppContext } from "../../../../context/AppContext";
 import TitlePage from "../../../TitlePage";
+import InputListValue from "../../../InputListValue";
 
 const PaymentMethod = () => {
   const {
@@ -24,43 +16,35 @@ const PaymentMethod = () => {
     virtualAccountActive,
   } = useContext(AppContext);
 
+  const initialValue = [
+    {
+      id: 0,
+      title: "e-Wallet",
+      value: "1,500,000 left",
+      onClick: eWalletActive,
+      isActive: isEWallet,
+    },
+    {
+      id: 1,
+      title: "Bank Transfer",
+      value: "",
+      onClick: bankTransferActive,
+      isActive: isBankTransfer,
+    },
+    {
+      id: 2,
+      title: "Virtual Account",
+      value: "",
+      onClick: virtualAccountActive,
+      isActive: isVirtualAccount,
+    },
+  ]
+
   return (
     <PaymentMethodWrapper>
       <TitlePage title="Payment" />
 
-      <PaymentList>
-        {isEWallet ? (
-          <PaymentItemActiveWallet onClick={eWalletActive}>
-            <PaymentItemTitle>e-Wallet</PaymentItemTitle>
-            <PaymentItemValue>1,500,000 left</PaymentItemValue>
-          </PaymentItemActiveWallet>
-        ) : (
-          <PaymentItemWallet onClick={eWalletActive}>
-            <PaymentItemTitle>e-Wallet</PaymentItemTitle>
-            <PaymentItemValue>1,500,000 left</PaymentItemValue>
-          </PaymentItemWallet>
-        )}
-
-        {isBankTransfer ? (
-          <PaymentItemActive onClick={bankTransferActive}>
-            <PaymentItemTitle>Bank Transfer</PaymentItemTitle>
-          </PaymentItemActive>
-        ) : (
-          <PaymentItem onClick={bankTransferActive}>
-            <PaymentItemTitle>Bank Transfer</PaymentItemTitle>
-          </PaymentItem>
-        )}
-
-        {isVirtualAccount ? (
-          <PaymentItemActive onClick={virtualAccountActive}>
-            <PaymentItemTitle>Virtual Account</PaymentItemTitle>
-          </PaymentItemActive>
-        ) : (
-          <PaymentItem onClick={virtualAccountActive}>
-            <PaymentItemTitle>Virtual Account</PaymentItemTitle>
-          </PaymentItem>
-        )}
-      </PaymentList>
+      <InputListValue data={initialValue} />
     </PaymentMethodWrapper>
   );
 };

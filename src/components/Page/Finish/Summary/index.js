@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   SummaryWrapper,
@@ -17,27 +17,17 @@ import {
   TotalPaymentValue,
 } from "./styles";
 
-import { addPayment } from "../../../../redux/store/actions/checkout.action";
-
 import { AppContext } from "../../../../context/AppContext";
-import Button from "../../../Button";
 import TitleSummary from "../../../TitleSummary";
 
 const Summary = () => {
-  const dispatch = useDispatch();
-  const { isEWallet, isBankTransfer, isVirtualAccount, currencyFormatter } =
-    useContext(AppContext);
-
+  const { currencyFormatter } = useContext(AppContext);
   const checkout = useSelector((state) => state.checkout);
 
   const totalPayment =
     500000 +
     Number(checkout.dropShippingFee) +
     Number(checkout.summary.cost);
-
-  const onAddPayment = () => {
-    dispatch(addPayment());
-  };
 
   return (
     <SummaryWrapper>
@@ -56,14 +46,23 @@ const Summary = () => {
         </Estimation>
       </DeliveryEstimation>
 
+      <DeliveryEstimation>
+        <Label>Payment method</Label>
+        <Estimation>Bank Transfer</Estimation>
+      </DeliveryEstimation>
+
       <TotalDelivery>
         <TotalDetail>
           <TotalTitle>Cost of goods</TotalTitle>
-          <TotalValue>500,000</TotalValue>
+          <TotalValue>{currencyFormatter(500000)}</TotalValue>
         </TotalDetail>
         <TotalDetail>
           <TotalTitle>Dropshipping Fee</TotalTitle>
-          <TotalValue>{currencyFormatter(checkout.dropShippingFee)}</TotalValue>
+          <TotalValue>
+            <TotalValue>
+              {currencyFormatter(checkout.dropShippingFee)}
+            </TotalValue>
+          </TotalValue>
         </TotalDetail>
         <TotalDetail>
           <TotalTitle>
@@ -78,19 +77,12 @@ const Summary = () => {
         <TotalPayment>
           <TotalPaymentTitle>Total</TotalPaymentTitle>
           <TotalPaymentValue>
-            {currencyFormatter(totalPayment || 0)}
+            {checkout.summary.hasOwnProperty("cost")
+              ? currencyFormatter(totalPayment)
+              : currencyFormatter(500000) +
+                currencyFormatter(checkout.dropShippingFee)}
           </TotalPaymentValue>
         </TotalPayment>
-
-        <Button
-          title={`Payment with ${
-            (isEWallet && "e-Wallet") ||
-            (isBankTransfer && "Bank Transfer") ||
-            (isVirtualAccount && "Virtual Account")
-          }`}
-          onClick={() => onAddPayment()}
-          disabled={!checkout.summary.hasOwnProperty("id")}
-        />
       </TotalDelivery>
     </SummaryWrapper>
   );

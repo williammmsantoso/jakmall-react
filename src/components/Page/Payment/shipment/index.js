@@ -34,16 +34,16 @@ const Shipment = ({ data }) => {
 
         <ShipmentList>
             {data.map((item, i) => (
-            <ShipmentItem
-                active={i === active ? i : ""}
-                key={i}
-                onClick={() => shipmentActive(item, i)}
-            >
-                <ShipmentItemTitle>{item.shipmentName}</ShipmentItemTitle>
-                <ShipmentItemValue>
-                {currencyFormatter(item.cost)}
-                </ShipmentItemValue>
-            </ShipmentItem>
+                <ShipmentItem
+                    active={i === active ? i : ""}
+                    key={i}
+                    onClick={() => shipmentActive(item, i)}
+                >
+                    <ShipmentItemTitle>{item.shipmentName}</ShipmentItemTitle>
+                    <ShipmentItemValue>
+                      {currencyFormatter(item.cost)}
+                    </ShipmentItemValue>
+                </ShipmentItem>
             ))}
         </ShipmentList>
     </ShipmentWrapper>

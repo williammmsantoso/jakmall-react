@@ -1,29 +1,30 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import TitlePage from "../../TitlePage";
 import { DeliveryContainer, FormSection } from "./styles";
 import FormDelivery from "./FormDelivery";
 import Summary from "./Summary";
-import { useDispatch } from "react-redux";
+import { FormControlLabel } from "@mui/material";
+import MemoCheckbox from "../../MemoCheckbox";
 import { CHECKOUT_DROPSHIPPING_FEE } from "../../../redux/actionTypes";
-import Checkbox from "../../Checkbox";
+import { useDispatch } from "react-redux";
 
-function Delivery() {
+const Delivery = () => {
     const dispatch = useDispatch();
-    const [checked, setChecked] = useState(false);
-
-    const onChange = useCallback(e => {
-        setChecked(!checked);
-        
-        console.log(checked);
-        
-        dispatch({ type: CHECKOUT_DROPSHIPPING_FEE, payload: checked ? 5900 : 0 });
-    }, []);
+    
+    const onChange = (e) => {
+        // console.log(e.target.checked)
+        dispatch({ type: CHECKOUT_DROPSHIPPING_FEE, payload: e.target.checked ? 5900 : 0 });
+    }
 
     return <DeliveryContainer>
         <FormSection>
             <div className="d-flex items-center justify-between">
                 <TitlePage title="Delivery details" />
-                <Checkbox label="Send as dropshipper" checked={checked} setChecked={onChange} />
+
+                <FormControlLabel
+                    control={<MemoCheckbox checkboxChange={onChange} />}
+                    label="Send as dropshipper"
+                />
             </div>
 
             <FormDelivery />
